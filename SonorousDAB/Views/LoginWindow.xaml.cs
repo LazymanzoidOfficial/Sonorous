@@ -38,7 +38,7 @@ namespace SonorousDAB.Views
 
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Please enter both email and password.");
+                MessageBox.Show("Please enter both email and password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -69,12 +69,12 @@ namespace SonorousDAB.Views
                 }
                 else
                 {
-                    MessageBox.Show("Login failed. Please check your credentials.");
+                    MessageBox.Show("Login failed. Please check your credentials.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error connecting to server: {ex.Message}");
+                MessageBox.Show($"Error connecting to server: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

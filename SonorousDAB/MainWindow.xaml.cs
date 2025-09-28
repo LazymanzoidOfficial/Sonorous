@@ -58,9 +58,40 @@ namespace SonorousDAB
             var windowHandle = new WindowInteropHelper(this).Handle;
             int attributeValue = 1; // 1 for dark mode, 0 for light mode
             DwmApi.DwmSetWindowAttribute(windowHandle, DWMWA_USE_IMMERSIVE_DARK_MODE, ref attributeValue, sizeof(int));
+            CheckForUpdates();
             if (mediaPlayer != null && volumeSlider != null)
             {
                 mediaPlayer.Volume = volumeSlider.Value;
+            }
+
+        }
+
+        private async Task CheckForUpdates()
+        {
+            string apiUrl = "https://api.github.com/repos/LazymanzoidOfficial/Sonorous/releases/latest";
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.UserAgent.ParseAdd("Sonorous");
+
+                try
+                {
+                    var response = await client.GetAsync(apiUrl);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+                        dynamic? release = JsonConvert.DeserializeObject(json);
+                        string latestVersion = release?.tag_name;
+
+                        if (latestVersion != AppInfo.CurrentVersion)
+                        {
+                            MessageBox.Show($"New version available: {latestVersion}\nVisit GitHub to download.", "Update available!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Optional: log or ignore
+                }
             }
         }
 
@@ -120,7 +151,7 @@ namespace SonorousDAB
                 resultsList.ItemsSource = null;
                 if (search.Text == "")
                 {
-                    MessageBox.Show("Please enter a search term.");
+                    MessageBox.Show("Please enter a search term.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
@@ -138,7 +169,7 @@ namespace SonorousDAB
             }
             catch (Exception e)
             {
-                MessageBox.Show("Exception: " + e.Message);
+                MessageBox.Show("Exception: " + e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -175,7 +206,7 @@ namespace SonorousDAB
 
                 if (string.IsNullOrEmpty(streamUrl))
                 {
-                    MessageBox.Show("Failed to get stream URL.");
+                    MessageBox.Show("Failed to get stream URL.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -189,7 +220,7 @@ namespace SonorousDAB
             }
             catch (Exception e)
             {
-                MessageBox.Show("Exception: " + e.Message);
+                MessageBox.Show("Exception: " + e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -221,7 +252,7 @@ namespace SonorousDAB
                         Properties.Settings.Default.ApiUsername = loginWindow.AuthUsername;
                         Properties.Settings.Default.Save();
 
-                        MessageBox.Show("Logged in successfully!");
+                        MessageBox.Show("Logged in successfully!", "Sonorous", MessageBoxButton.OK, MessageBoxImage.Information);
                         isLoggedIn = true;
                         UpdateAuthenticationUi();
                     }
@@ -253,22 +284,22 @@ namespace SonorousDAB
                             }
 
                             UpdateAuthenticationUi();
-                            MessageBox.Show("Logged out successfully");
+                            MessageBox.Show("Logged out successfully", "Sonorous", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         else
                         {
-                            MessageBox.Show($"Logout failed: {response.StatusCode}");
+                            MessageBox.Show($"Logout failed: {response.StatusCode}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error during logout: {ex.Message}");
+                        MessageBox.Show($"Error during logout: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show("Exception: " + e.Message);
+                MessageBox.Show("Exception: " + e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -302,11 +333,18 @@ namespace SonorousDAB
             }
         }
 
-        private async void ResultsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void ResultsList_MouseDoubleClick(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
-            if (resultsList.SelectedItem is Track selectedTrack)
+            try
             {
-                await Task.Run(() => Dispatcher.Invoke(() => PlayStreamAsync(selectedTrack)));
+                if (resultsList.SelectedItem is Track selectedTrack)
+                {
+                    await Task.Run(() => Dispatcher.Invoke(() => PlayStreamAsync(selectedTrack)));
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Exception: " + e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -403,7 +441,7 @@ namespace SonorousDAB
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Failed to load favorites: " + ex.Message + " You are not logged into your DAB Music account.");
+                        MessageBox.Show("Failed to load favorites: " + ex.Message + " You are not logged into your DAB Music account.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     finally
                     {
@@ -422,7 +460,7 @@ namespace SonorousDAB
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Failed to load favorites: " + ex.Message);
+                    MessageBox.Show("Failed to load favorites: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 finally
                 {
@@ -431,7 +469,7 @@ namespace SonorousDAB
             }
             catch (Exception e)
             {
-                MessageBox.Show("Exception: " + e.Message);
+                MessageBox.Show("Exception: " + e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
