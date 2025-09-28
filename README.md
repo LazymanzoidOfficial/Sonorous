@@ -22,7 +22,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![project_license][license-shield]][license-url]
+[![AGPLv3][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
@@ -85,7 +85,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started. To avoid retyping too much info, do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`, `project_license`
+Here's a blank template to get started. To avoid retyping too much info, do a search and replace with your text editor for the following: `LazymanzoidOfficial`, `Sonorous`, `Lazymanzoid`, `linkedin_username`, `outlook`, `lazymanzoid@outlook.com`, `Sonorous`, `A free, open-source DAB music client made in WPF.`, `AGPLv3`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -137,7 +137,7 @@ This is an example of how to list things you need to use the software and how to
    ```
 5. Change git remote url to avoid accidental pushes to base project
    ```sh
-   git remote set-url origin github_username/repo_name
+   git remote set-url origin LazymanzoidOfficial/Sonorous
    git remote -v # confirm the changes
    ```
 
@@ -189,7 +189,7 @@ Don't forget to give the project a star! Thanks again!
 ### Top contributors:
 
 <a href="https://github.com/LazymanzoidOfficial/Sonorous/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=github_username/repo_name" alt="contrib.rocks image" />
+  <img src="https://contrib.rocks/image?repo=LazymanzoidOfficial/Sonorous" alt="contrib.rocks image" />
 </a>
 
 
@@ -197,7 +197,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the project_license. See `LICENSE.txt` for more information.
+Distributed under the AGPLv3. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -206,7 +206,7 @@ Distributed under the project_license. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Your Name - [@Lazymanzoid](https://twitter.com/Lazymanzoid) - lazymanzoid@outlook.com@outlook.com
 
 Project Link: [https://github.com/LazymanzoidOfficial/Sonorous](https://github.com/LazymanzoidOfficial/Sonorous)
 
@@ -227,15 +227,15 @@ Project Link: [https://github.com/LazymanzoidOfficial/Sonorous](https://github.c
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/LazymanzoidOfficial/Sonorous.svg?style=for-the-badge
 [contributors-url]: https://github.com/LazymanzoidOfficial/Sonorous/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/LazymanzoidOfficial/Sonorous.svg?style=for-the-badge
 [forks-url]: https://github.com/LazymanzoidOfficial/Sonorous/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/LazymanzoidOfficial/Sonorous.svg?style=for-the-badge
 [stars-url]: https://github.com/LazymanzoidOfficial/Sonorous/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/LazymanzoidOfficial/Sonorous.svg?style=for-the-badge
 [issues-url]: https://github.com/LazymanzoidOfficial/Sonorous/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/LazymanzoidOfficial/Sonorous.svg?style=for-the-badge
 [license-url]: https://github.com/LazymanzoidOfficial/Sonorous/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
