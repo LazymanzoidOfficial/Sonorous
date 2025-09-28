@@ -93,6 +93,9 @@ Sonorous is a free, open-source music app built in WPF and utilizes the DAB Musi
 
 ### Features
 - **🎵 Hi-Res Lossless Audio**: Listen to your favorite songs in the highest sound quality available. (Up to 24-bit/192khz.)
+- **🖥️ Its Native!**: That's right! No electron, web browser framework that hogs your RAM. The app is built on WPF, a lightweight and fast framework.
+- **👤 Account System**: Sonorous allows you to log into your DAB Music account and access your favorite tracks. (Library coming soon).
+- **🗒️ Open Source**: Sonorous is completely open-source, allowing you to look inside the code of the app and make contributions.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
