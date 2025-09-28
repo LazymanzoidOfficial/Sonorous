@@ -194,7 +194,7 @@ namespace SonorousDAB
 
 
 
-        private void AuthButton_Click(object sender, RoutedEventArgs e)
+        private async void AuthButton_Click(object sender, RoutedEventArgs e)
         {
             if (authButton.Content.ToString() == "Login")
             {
@@ -205,7 +205,6 @@ namespace SonorousDAB
                     Properties.Settings.Default.ApiUsername = loginWindow.AuthUsername;
                     Properties.Settings.Default.Save();
 
-
                     MessageBox.Show("Logged in successfully!");
                     isLoggedIn = true;
                     UpdateAuthUI();
@@ -213,23 +212,41 @@ namespace SonorousDAB
             }
             else
             {
-                Properties.Settings.Default.ApiEmail = "";
-                Properties.Settings.Default.ApiUsername = "";
-                Properties.Settings.Default.Save();
-
-                isLoggedIn = false;
-                // Remove the session cookie
-                var uri = new Uri("https://dabmusic.xyz");
-                var cookies = LoginData.cookieJar.GetCookies(uri);
-                var session = cookies["session"];
-                if (session != null)
+                try
                 {
-                    session.Expired = true;
+                    var response = await LoginData.client.PostAsync("https://dabmusic.xyz/api/auth/logout", null);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Clear local auth state
+                        Properties.Settings.Default.ApiEmail = "";
+                        Properties.Settings.Default.ApiUsername = "";
+                        Properties.Settings.Default.SessionCookie = null;
+                        Properties.Settings.Default.Save();
+
+                        isLoggedIn = false;
+
+                        // Wipe cookie from container
+                        var uri = new Uri("https://dabmusic.xyz");
+                        var cookies = LoginData.cookieJar.GetCookies(uri);
+                        var session = cookies["session"];
+                        if (session != null)
+                        {
+                            session.Expired = true;
+                        }
+
+                        UpdateAuthUI();
+                        MessageBox.Show("Logged out.");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Logout failed: {response.StatusCode}");
+                    }
                 }
-                Properties.Settings.Default.SessionCookie = null;
-                Properties.Settings.Default.Save();
-                UpdateAuthUI();
-                MessageBox.Show("Logged out.");
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error during logout: {ex.Message}");
+                }
             }
         }
 
