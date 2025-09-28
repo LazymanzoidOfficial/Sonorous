@@ -66,7 +66,6 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -164,20 +163,9 @@ Distributed under the AGPLv3 license. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@Lazymanzoid](https://twitter.com/Lazymanzoid) - lazymanzoid@outlook.com
+[@Lazymanzoid](https://twitter.com/Lazymanzoid) - lazymanzoid@outlook.com
 
-Project Link: [https://github.com/LazymanzoidOfficial/Sonorous](https://github.com/LazymanzoidOfficial/Sonorous)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
+[https://github.com/LazymanzoidOfficial/Sonorous](https://github.com/LazymanzoidOfficial/Sonorous)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
