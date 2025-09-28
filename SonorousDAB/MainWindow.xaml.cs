@@ -40,7 +40,7 @@ namespace SonorousDAB
             mediaPlayer.MediaOpened += MediaPlayer_MediaOpened;
             mediaPlayer.MediaEnded += MediaPlayer_MediaEnded;
             this.Loaded += MainWindow_Loaded;
-            UpdateAuthUI();
+            UpdateAuthenticationUi();
 
         }
 
@@ -87,12 +87,10 @@ namespace SonorousDAB
 
         private void MediaPlayer_MediaOpened(object sender, RoutedEventArgs e)
         {
-            if (mediaPlayer.NaturalDuration.HasTimeSpan)
-            {
-                seekBar.Maximum = mediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
-                totalTime.Text = mediaPlayer.NaturalDuration.TimeSpan.ToString(@"m\:ss");
-                playbackTimer.Start();
-            }
+            if (!mediaPlayer.NaturalDuration.HasTimeSpan) return;
+            seekBar.Maximum = mediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
+            totalTime.Text = mediaPlayer.NaturalDuration.TimeSpan.ToString(@"m\:ss");
+            playbackTimer.Start();
         }
 
         private readonly DispatcherTimer playbackTimer = new DispatcherTimer
@@ -104,39 +102,47 @@ namespace SonorousDAB
         // These are unused for now but can be expanded later
         private readonly string[] blurbs = new[]
         {
-            "",
+            "yeah this is unused for now",
         };
 
 
-        private readonly DabMusicAPI api = new();
+        private readonly DabMusicAPI _api = new();
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object? sender, RoutedEventArgs? routedEventArgs)
         {
-            loadingOverlay.Visibility = Visibility.Visible;
-            //loadingBlurb.Text = blurbs[new Random().Next(blurbs.Length)];
-
-
-            resultsList.ItemsSource = null;
-            if (search.Text == "")
+            try
             {
-                MessageBox.Show("Please enter a search term.");
+                // unused blurb selection for now
+                loadingOverlay.Visibility = Visibility.Visible;
+                //loadingBlurb.Text = blurbs[new Random().Next(blurbs.Length)];
+
+
+                resultsList.ItemsSource = null;
+                if (search.Text == "")
+                {
+                    MessageBox.Show("Please enter a search term.");
+                }
+                else
+                {
+                    try
+                    {
+                        var query = search.Text;
+                        var results = await _api.SearchTracksAsync(query); // Your API call
+                        resultsList.ItemsSource = results;
+                    }
+                    finally
+                    {
+                        loadingOverlay.Visibility = Visibility.Collapsed;
+                    }
+                }
             }
-            else
+            catch (Exception e)
             {
-                try
-                {
-                    var query = search.Text;
-                    var results = await api.SearchTracksAsync(query); // Your API call
-                    resultsList.ItemsSource = results;
-                }
-                finally
-                {
-                    loadingOverlay.Visibility = Visibility.Collapsed;
-                }
+                throw; // TODO handle exception
             }
         }
 
-        private async Task<string> GetStreamUrlAsync(string trackId)
+        private async Task<string?> GetStreamUrlAsync(string trackId)
         {
             using var client = new HttpClient();
             var response = await LoginData.client.GetAsync($"https://dabmusic.xyz/api/stream?trackId={trackId}");
@@ -149,35 +155,42 @@ namespace SonorousDAB
 
         private async void PlayStreamAsync(Track selectedTrack)
         {
-            seekBar.Value = 0;
-            elapsedTime.Text = "0:00";
-            totalTime.Text = "--:--";
-
-            playerTitle.Text = "Loading...";
-            playerArtist.Text = "";
-            playerHiRes.Visibility = Visibility.Collapsed;
-
-            string streamUrl = selectedTrack.ResolvedStreamUrl;
-
-            if (string.IsNullOrEmpty(streamUrl))
+            try
             {
-                streamUrl = await GetStreamUrlAsync(selectedTrack.Id);
-                selectedTrack.ResolvedStreamUrl = streamUrl;
-            }
+                seekBar.Value = 0;
+                elapsedTime.Text = "0:00";
+                totalTime.Text = "--:--";
 
-            if (string.IsNullOrEmpty(streamUrl))
+                playerTitle.Text = "Loading...";
+                playerArtist.Text = "";
+                playerHiRes.Visibility = Visibility.Collapsed;
+
+                string? streamUrl = selectedTrack.ResolvedStreamUrl;
+
+                if (string.IsNullOrEmpty(streamUrl))
+                {
+                    streamUrl = await GetStreamUrlAsync(selectedTrack.Id);
+                    selectedTrack.ResolvedStreamUrl = streamUrl;
+                }
+
+                if (string.IsNullOrEmpty(streamUrl))
+                {
+                    MessageBox.Show("Failed to get stream URL.");
+                    return;
+                }
+
+                mediaPlayer.Source = new Uri(streamUrl);
+                mediaPlayer.Play();
+
+                playerTitle.Text = selectedTrack.Title;
+                playerArtist.Text = selectedTrack.Artist;
+                playerAlbumCover.Source = new BitmapImage(new Uri(selectedTrack.AlbumCover));
+                playerHiRes.Visibility = selectedTrack.IsHiRes ? Visibility.Visible : Visibility.Collapsed;
+            }
+            catch (Exception e)
             {
-                MessageBox.Show("Failed to get stream URL.");
-                return;
+                throw; // TODO handle exception
             }
-
-            mediaPlayer.Source = new Uri(streamUrl);
-            mediaPlayer.Play();
-
-            playerTitle.Text = selectedTrack.Title;
-            playerArtist.Text = selectedTrack.Artist;
-            playerAlbumCover.Source = new BitmapImage(new Uri(selectedTrack.AlbumCover));
-            playerHiRes.Visibility = selectedTrack.IsHiRes ? Visibility.Visible : Visibility.Collapsed;
         }
 
 
@@ -194,63 +207,72 @@ namespace SonorousDAB
 
 
 
-        private async void AuthButton_Click(object sender, RoutedEventArgs e)
+        private async void AuthButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            if (authButton.Content.ToString() == "Login")
+            try
             {
-                var loginWindow = new LoginWindow { Owner = this };
-                if (loginWindow.ShowDialog() == true)
+                if (authButton.Content.ToString() == "Login")
                 {
-                    Properties.Settings.Default.ApiEmail = loginWindow.AuthEmail;
-                    Properties.Settings.Default.ApiUsername = loginWindow.AuthUsername;
-                    Properties.Settings.Default.Save();
-
-                    MessageBox.Show("Logged in successfully!");
-                    isLoggedIn = true;
-                    UpdateAuthUI();
-                }
-            }
-            else
-            {
-                try
-                {
-                    var response = await LoginData.client.PostAsync("https://dabmusic.xyz/api/auth/logout", null);
-
-                    if (response.IsSuccessStatusCode)
+                    // LoginWindow handles the login process and returns the email and username on success
+                    var loginWindow = new LoginWindow { Owner = this };
+                    if (loginWindow.ShowDialog() == true)
                     {
-                        // Clear local auth state
-                        Properties.Settings.Default.ApiEmail = "";
-                        Properties.Settings.Default.ApiUsername = "";
-                        Properties.Settings.Default.SessionCookie = null;
+                        Properties.Settings.Default.ApiEmail = loginWindow.AuthEmail;
+                        Properties.Settings.Default.ApiUsername = loginWindow.AuthUsername;
                         Properties.Settings.Default.Save();
 
-                        isLoggedIn = false;
-
-                        // Wipe cookie from container
-                        var uri = new Uri("https://dabmusic.xyz");
-                        var cookies = LoginData.cookieJar.GetCookies(uri);
-                        var session = cookies["session"];
-                        if (session != null)
-                        {
-                            session.Expired = true;
-                        }
-
-                        UpdateAuthUI();
-                        MessageBox.Show("Logged out.");
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Logout failed: {response.StatusCode}");
+                        MessageBox.Show("Logged in successfully!");
+                        isLoggedIn = true;
+                        UpdateAuthenticationUi();
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show($"Error during logout: {ex.Message}");
+                    try
+                    {
+                        // Makes a POST call to /auth/logout to invalidate the session on the server, if successful, clear local state
+                        var response = await LoginData.client.PostAsync("https://dabmusic.xyz/api/auth/logout", null);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            // Clear local auth state
+                            Properties.Settings.Default.ApiEmail = "";
+                            Properties.Settings.Default.ApiUsername = "";
+                            Properties.Settings.Default.SessionCookie = null;
+                            Properties.Settings.Default.Save();
+
+                            isLoggedIn = false;
+
+                            // Wipe cookie from container
+                            var uri = new Uri("https://dabmusic.xyz");
+                            var cookies = LoginData.cookieJar.GetCookies(uri);
+                            var session = cookies["session"];
+                            if (session != null)
+                            {
+                                session.Expired = true;
+                            }
+
+                            UpdateAuthenticationUi();
+                            MessageBox.Show("Logged out successfully");
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Logout failed: {response.StatusCode}");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error during logout: {ex.Message}");
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                throw; // TODO handle exception
             }
         }
 
-        private void UpdateAuthUI()
+        private void UpdateAuthenticationUi()
         {
             if (!string.IsNullOrEmpty(Properties.Settings.Default.ApiUsername))
             {
@@ -269,7 +291,7 @@ namespace SonorousDAB
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             
-            UpdateAuthUI();
+            UpdateAuthenticationUi();
 
         }
         private void search_KeyDown(object sender, KeyEventArgs e)
@@ -361,14 +383,35 @@ namespace SonorousDAB
             var favoritesJson = doc.RootElement.GetProperty("favorites").GetRawText();
 
             var tracks = JsonConvert.DeserializeObject<List<Track>>(favoritesJson);
-            return tracks?.ToArray() ?? Array.Empty<Track>();
+            return tracks?.ToArray() ?? [];
         }
 
 
-        private async void FavButton_Click(object sender, RoutedEventArgs e)
+        private async void FavButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            if (string.IsNullOrEmpty(Properties.Settings.Default.ApiEmail))
+            try
             {
+                if (string.IsNullOrEmpty(Properties.Settings.Default.ApiEmail))
+                {
+                    resultsList.ItemsSource = null;
+                    ShowLoading("Fetching your favorite tracks...");
+
+                    try
+                    {
+                        var favorites = await FetchFavoritesAsync();
+                        resultsList.ItemsSource = favorites;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Failed to load favorites: " + ex.Message + " You are not logged into your DAB Music account.");
+                    }
+                    finally
+                    {
+                        HideLoading();
+                    }
+                    return;
+                }
+
                 resultsList.ItemsSource = null;
                 ShowLoading("Fetching your favorite tracks...");
 
@@ -379,30 +422,16 @@ namespace SonorousDAB
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Failed to load favorites: " + ex.Message + " You are not logged into your DAB Music account.");
+                    MessageBox.Show("Failed to load favorites: " + ex.Message);
                 }
                 finally
                 {
                     HideLoading();
                 }
-                return;
             }
-
-            resultsList.ItemsSource = null;
-            ShowLoading("Fetching your favorite tracks...");
-
-            try
+            catch (Exception e)
             {
-                var favorites = await FetchFavoritesAsync();
-                resultsList.ItemsSource = favorites;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to load favorites: " + ex.Message);
-            }
-            finally
-            {
-                HideLoading();
+                throw; // TODO handle exception
             }
         }
 
