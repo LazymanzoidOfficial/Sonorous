@@ -164,7 +164,7 @@ Distributed under the AGPLv3 license. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@Lazymanzoid](https://twitter.com/Lazymanzoid) - lazymanzoid@outlook.com@outlook.com
+Your Name - [@Lazymanzoid](https://twitter.com/Lazymanzoid) - lazymanzoid@outlook.com
 
 Project Link: [https://github.com/LazymanzoidOfficial/Sonorous](https://github.com/LazymanzoidOfficial/Sonorous)
 
