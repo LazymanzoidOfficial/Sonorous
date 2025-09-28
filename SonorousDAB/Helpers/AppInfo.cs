@@ -8,6 +8,6 @@ namespace SonorousDAB.Helpers
 {
     public static class AppInfo
     {
-        public static string CurrentVersion = "v0.1.0";
+        public static string CurrentVersion = "v0.1.1";
     }
 }
