@@ -157,18 +157,11 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Top contributors:
-
-<a href="https://github.com/LazymanzoidOfficial/Sonorous/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=LazymanzoidOfficial/Sonorous" alt="contrib.rocks image" />
-</a>
-
-
 
 <!-- LICENSE -->
 ## License
 
-Distributed under the AGPLv3. See `LICENSE.txt` for more information.
+Distributed under the AGPLv3 license. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
