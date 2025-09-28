@@ -104,60 +104,38 @@ Sonorous is a free, open-source music app built in WPF and utilizes the DAB Musi
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+* Visual Studio 2022
+* .NET 8.0
+* Git for Windows (if you want to contribute)
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+### 1. Clone the repo
    ```sh
    git clone https://github.com/LazymanzoidOfficial/Sonorous.git
+   cd Sonorous
    ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-5. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin LazymanzoidOfficial/Sonorous
-   git remote -v # confirm the changes
-   ```
+### 2. Open the project
+   - **Method A:** Open the ```.sln``` file in the folder
+   - **Method B:** In Visual Studio, go to File > Open > Project/Solution, then navigate to the cloned folder and open the ```.sln``` file.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+### 3. Fix NuGet Packages
+- Visual Studio 2022 might prompt you to fix them. If the pop-up does not appear,
+- Go to Tools > NuGet Package Manager > Package Manager Console and run this command:
+```Update-Package -reinstall```
 
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
+### 4. Build the project
+- Press **Ctrl + Shift + B** to build the project.
+- Then press F5 to run the project.
 
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Library system
+- [ ] Song queue
+- [ ] Account creation
 
 See the [open issues](https://github.com/LazymanzoidOfficial/Sonorous/issues) for a full list of proposed features (and known issues).
 
@@ -232,23 +210,4 @@ Project Link: [https://github.com/LazymanzoidOfficial/Sonorous](https://github.c
 [issues-url]: https://github.com/LazymanzoidOfficial/Sonorous/issues
 [license-shield]: https://img.shields.io/github/license/LazymanzoidOfficial/Sonorous.svg?style=for-the-badge
 [license-url]: https://github.com/LazymanzoidOfficial/Sonorous/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
-<!-- Shields.io badges. You can a comprehensive list with many more badges at: https://github.com/inttter/md-badges -->
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+[product-screenshot]: screenshots/product.png
