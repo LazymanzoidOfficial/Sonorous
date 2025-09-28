@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SonorousDAB.Helpers;
 using SonorousDAB.Views;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -84,7 +85,15 @@ namespace SonorousDAB
 
                         if (latestVersion != AppInfo.CurrentVersion)
                         {
-                            MessageBox.Show($"New version available: {latestVersion}\nVisit GitHub to download.", "Update available!", MessageBoxButton.OK, MessageBoxImage.Information);
+                            var result = MessageBox.Show($"New version available: {latestVersion}\nDo you want to download it?", "Update available!", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                            if (result == MessageBoxResult.Yes)
+                            {
+                                Process.Start(new ProcessStartInfo
+                                {
+                                    FileName = "https://github.com/LazymanzoidOfficial/Sonorous/releases/latest",
+                                    UseShellExecute = true
+                                });
+                            }
                         }
                     }
                 }
