@@ -23,7 +23,7 @@ namespace SonorousDAB
         public string Id { get; set; }
         public string StreamUrl => $"https://dabmusic.xyz/api/stream?trackId={Id}";
         // Cached stream URL after API call
-        public string ResolvedStreamUrl { get; set; }
+        public string? ResolvedStreamUrl { get; set; }
 
 
         public Visibility HiResVisibility => IsHiRes ? Visibility.Visible : Visibility.Collapsed;

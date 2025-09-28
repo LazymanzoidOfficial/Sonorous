@@ -138,7 +138,7 @@ namespace SonorousDAB
             }
             catch (Exception e)
             {
-                throw; // TODO handle exception
+                MessageBox.Show("Exception: " + e.Message);
             }
         }
 
@@ -189,7 +189,7 @@ namespace SonorousDAB
             }
             catch (Exception e)
             {
-                throw; // TODO handle exception
+                MessageBox.Show("Exception: " + e.Message);
             }
         }
 
@@ -268,7 +268,7 @@ namespace SonorousDAB
             }
             catch (Exception e)
             {
-                throw; // TODO handle exception
+                MessageBox.Show("Exception: " + e.Message);
             }
         }
 
@@ -431,7 +431,7 @@ namespace SonorousDAB
             }
             catch (Exception e)
             {
-                throw; // TODO handle exception
+                MessageBox.Show("Exception: " + e.Message);
             }
         }
 
@@ -453,8 +453,6 @@ namespace SonorousDAB
                 case false:
                     this.WindowState = WindowState.Maximized;
                     isMaximized = true;
-                    break;
-                default:
                     break;
             }
         }
