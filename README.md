@@ -85,22 +85,14 @@
 
 <img src="screenshots/product.png" alt="Screenshot of the app">
 
-Here's a blank template to get started. To avoid retyping too much info, do a search and replace with your text editor for the following: `LazymanzoidOfficial`, `Sonorous`, `Lazymanzoid`, `linkedin_username`, `outlook`, `lazymanzoid@outlook.com`, `Sonorous`, `A free, open-source DAB music client made in WPF.`, `AGPLv3`
+Sonorous is a free, open-source music app built in WPF and utilizes the DAB Music API for music searching, playback, and login.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
-### Built With
-
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+### Features
+- **🎵 Hi-Res Lossless Audio**: Listen to your favorite songs in the highest sound quality available. (Up to 24-bit/192khz.)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
