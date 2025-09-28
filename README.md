@@ -40,8 +40,6 @@
     <a href="https://github.com/LazymanzoidOfficial/Sonorous"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/LazymanzoidOfficial/Sonorous">View Demo</a>
-    &middot;
     <a href="https://github.com/LazymanzoidOfficial/Sonorous/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
     <a href="https://github.com/LazymanzoidOfficial/Sonorous/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
@@ -56,10 +54,7 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
+        </li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -67,8 +62,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
