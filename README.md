@@ -83,7 +83,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][screenshots/product.png]](https://example.com)
+<img src="screenshots/product.png" alt="Screenshot of the app">
 
 Here's a blank template to get started. To avoid retyping too much info, do a search and replace with your text editor for the following: `LazymanzoidOfficial`, `Sonorous`, `Lazymanzoid`, `linkedin_username`, `outlook`, `lazymanzoid@outlook.com`, `Sonorous`, `A free, open-source DAB music client made in WPF.`, `AGPLv3`
 
