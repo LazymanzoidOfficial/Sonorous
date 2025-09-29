@@ -66,7 +66,6 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -84,7 +83,7 @@ Sonorous is a free, open-source music app built in WPF and utilizes the DAB Musi
 
 
 # Features
-- **🎵 Hi-Res Lossless Audio**: Listen to your favorite songs in the highest sound quality available. (Up to 24-bit/192khz.)
+- **🎵 Hi-Res Lossless Audio**: Listen to your favorite songs in the highest sound quality available. (Up to 24-bit/192khz)
 - **🖥️ No Electron**: That's right! No electron is used, or any other chrome framework that eats up your RAM. The app is built on WPF, a lightweight and fast framework.
 - **👤 Account System**: Sonorous allows you to log into your DAB Music account and access your favorite tracks. (Library coming soon).
 - **🗒️ Open Source**: Sonorous is completely open-source, allowing you to look inside the code of the app and make contributions.
@@ -164,20 +163,9 @@ Distributed under the AGPLv3 license. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@Lazymanzoid](https://twitter.com/Lazymanzoid) - lazymanzoid@outlook.com
+[@Lazymanzoid](https://twitter.com/Lazymanzoid) - lazymanzoid@outlook.com
 
-Project Link: [https://github.com/LazymanzoidOfficial/Sonorous](https://github.com/LazymanzoidOfficial/Sonorous)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
+[https://github.com/LazymanzoidOfficial/Sonorous](https://github.com/LazymanzoidOfficial/Sonorous)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
