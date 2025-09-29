@@ -28,6 +28,7 @@ namespace SonorousDAB
     public partial class MainWindow : Window
     {
         public bool isLoggedIn = true;
+        private bool isPlaying = false;
 
         public const int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
         public MainWindow()
@@ -81,7 +82,7 @@ namespace SonorousDAB
                     {
                         var json = await response.Content.ReadAsStringAsync();
                         dynamic? release = JsonConvert.DeserializeObject(json);
-                        string latestVersion = release?.tag_name;
+                        string? latestVersion = release?.tag_name;
 
                         if (latestVersion != AppInfo.CurrentVersion)
                         {
@@ -220,6 +221,8 @@ namespace SonorousDAB
                 }
 
                 mediaPlayer.Source = new Uri(streamUrl);
+                PlayBtn.Content = "⏸";
+                isPlaying = true;
                 mediaPlayer.Play();
 
                 playerTitle.Text = selectedTrack.Title;
@@ -366,15 +369,19 @@ namespace SonorousDAB
         {
             if (mediaPlayer.Source != null)
             {
-                mediaPlayer.Play();
-            }
-        }
-
-        private void PauseButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (mediaPlayer.Source != null)
-            {
-                mediaPlayer.Pause();
+                switch (isPlaying)
+                {
+                    case true:
+                        mediaPlayer.Pause();
+                        isPlaying = false;
+                        PlayBtn.Content = "▶";
+                        break;
+                    case false:
+                        mediaPlayer.Play();
+                        isPlaying = true;
+                        PlayBtn.Content = "⏸";
+                        break;
+                }
             }
         }
 
@@ -415,7 +422,9 @@ namespace SonorousDAB
         {
             if (mediaPlayer != null)
             {
-                mediaPlayer.Volume = volumeSlider.Value;
+                int volPercentRounded = (int)Math.Round(volumeSlider.Value);
+                VolPercent.Content = $"{volPercentRounded}%";
+                mediaPlayer.Volume = volumeSlider.Value / 100.0;
             }
         }
 

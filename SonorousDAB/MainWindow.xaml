@@ -154,20 +154,15 @@ FontWeight="SemiBold"
                 </Grid.RowDefinitions>
 
                 <!-- ▶ Playback Buttons Centered -->
-                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,5">
-                    <Button Content="▶"
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="49.8,0,0,-20">
+                    <Button Name="PlayBtn" Content="▶"
                     Width="30"
                     Click="PlayButton_Click"
-                            Background="#007ACC"
-Foreground="White"
+                            Background="White"
+Foreground="Black"
 FontWeight="SemiBold"
-                    Margin="0,0,10,0" BorderBrush="#FF007ACC" Height="30"/>
-                    <Button Content="⏸"
-                            Background="#007ACC"
-Foreground="White"
-FontWeight="SemiBold"
-                    Width="30"
-                    Click="PauseButton_Click" BorderBrush="#FF007ACC"/>
+                    Margin="0,0,40,0" BorderBrush="#FF007ACC" Height="30"/>
+                    
                 </StackPanel>
 
                 <!-- 🎶 Bottom Row Layout -->
@@ -248,14 +243,16 @@ FontWeight="SemiBold"
                         <TextBlock Text="🔊" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
                         <Slider x:Name="volumeSlider"
                         Minimum="0"
-                        Maximum="1"
-                        Value="0.8"
+                        Maximum="100"
+                        Value="100"
                         Width="100"
                         TickFrequency="0.1"
                         IsSnapToTickEnabled="True"
                         ValueChanged="VolumeSlider_ValueChanged"
                         VerticalAlignment="Center"/>
+
                     </StackPanel>
+                    <Label Name="VolPercent" Content="100%" Background="Transparent" Foreground="White" Grid.Column="2" Margin="0,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
             </Grid>
         </Border>
