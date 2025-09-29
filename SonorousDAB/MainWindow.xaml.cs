@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -19,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using static SonorousDAB.Helpers.DwmApi;
 
 namespace SonorousDAB
 {
@@ -29,18 +31,18 @@ namespace SonorousDAB
     {
         public bool isLoggedIn = true;
         private bool isPlaying = false;
-
         public const int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
         public MainWindow()
         {
-
             InitializeComponent();
             RestoreSessionCookie();
+
             playbackTimer.Interval = TimeSpan.FromMilliseconds(500);
             playbackTimer.Tick += PlaybackTimer_Tick;
 
             mediaPlayer.MediaOpened += MediaPlayer_MediaOpened;
             mediaPlayer.MediaEnded += MediaPlayer_MediaEnded;
+
             this.Loaded += MainWindow_Loaded;
             UpdateAuthenticationUi();
 
@@ -59,12 +61,14 @@ namespace SonorousDAB
         {
             var windowHandle = new WindowInteropHelper(this).Handle;
             int attributeValue = 1; // 1 for dark mode, 0 for light mode
+
             DwmApi.DwmSetWindowAttribute(windowHandle, DWMWA_USE_IMMERSIVE_DARK_MODE, ref attributeValue, sizeof(int));
             CheckForUpdates();
             if (mediaPlayer != null && volumeSlider != null)
             {
-                mediaPlayer.Volume = volumeSlider.Value;
+                mediaPlayer.Volume = volumeSlider.Value / 100.0;
             }
+
 
         }
 
@@ -128,6 +132,7 @@ namespace SonorousDAB
 
         private void MediaPlayer_MediaOpened(object sender, RoutedEventArgs e)
         {
+            mediaPlayer.Volume = volumeSlider.Value / 100.0;
             if (!mediaPlayer.NaturalDuration.HasTimeSpan) return;
             seekBar.Maximum = mediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
             totalTime.Text = mediaPlayer.NaturalDuration.TimeSpan.ToString(@"m\:ss");

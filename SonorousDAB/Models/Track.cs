@@ -10,6 +10,7 @@ namespace SonorousDAB
 {
     public class Track
     {
+        public string LargeImageKey = "album_art";
         public string Title { get; set; }
         public string AlbumTitle { get; set; }
         public string Artist { get; set; }
@@ -18,12 +19,20 @@ namespace SonorousDAB
         public string ReleaseDate { get; set; }
         public string Genre { get; set; }
         public int Duration { get; set; } // Duration in seconds
+        int DurationMinutes => Duration / 60;
+        int DurationSeconds => Duration % 60;
+        public string DurationDisplay => $"{DurationMinutes}:{DurationSeconds:D2}";
         public string AlbumCover { get; set; }
         public AudioQuality AudioQuality { get; set; }
         public string Id { get; set; }
         public string StreamUrl => $"https://dabmusic.xyz/api/stream?trackId={Id}";
         // Cached stream URL after API call
         public string? ResolvedStreamUrl { get; set; }
+        public bool parental_warning { get; set; }
+
+        public string ExplicitContent => isExplicit + DurationDisplay;
+
+        public string isExplicit => parental_warning ? "E • " : string.Empty;
 
 
         public Visibility HiResVisibility => IsHiRes ? Visibility.Visible : Visibility.Collapsed;

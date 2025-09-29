@@ -95,12 +95,23 @@ FontWeight="SemiBold"
 
         <!-- 🧩 Main content area -->
         <Grid Grid.Column="1" Grid.Row="0" Background="#FF252525" Grid.ColumnSpan="2">
-            <ListBox x:Name="resultsList" Margin="10,10,10,10" SelectionChanged="ResultsList_SelectionChanged" MouseDoubleClick="ResultsList_MouseDoubleClick" Background="#FF252525" BorderBrush="#FF252525">
+            <ListBox x:Name="resultsList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="10,10,10,10" SelectionChanged="ResultsList_SelectionChanged" MouseDoubleClick="ResultsList_MouseDoubleClick" Background="#FF252525" BorderBrush="#FF252525">
+                <ListBox.Resources>
+                    <Style TargetType="ScrollBar">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="Transparent"></Setter>
+                    </Style>
+                    <Style TargetType="Thumb">
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+
+                </ListBox.Resources>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <!-- Album Artwork -->
-                            <Image Source="{Binding AlbumCover}" Width="60" Height="60" Margin="0,0,10,0"
+                            <Image Source="{Binding AlbumCover}" Width="70" Height="70" Margin="0,0,10,0"
                                    Stretch="UniformToFill"
                                    RenderOptions.BitmapScalingMode="HighQuality"/>
 
@@ -108,11 +119,13 @@ FontWeight="SemiBold"
                             <StackPanel>
                                 <TextBlock Text="{Binding Title}" FontWeight="Bold" Foreground="White"/>
                                 <TextBlock Text="{Binding Artist}" FontStyle="Italic" Foreground="White"/>
+                                <TextBlock Text="{Binding ExplicitContent}" Foreground="White"/>
                                 <TextBlock Text="{Binding AudioQualityDisplay}" Foreground="Gray"/>
                                 <TextBlock Text="Hi-Res"
                                            Foreground="#C7AE00"
                                            FontWeight="Bold"
                                            Visibility="{Binding HiResVisibility}"/>
+                               
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>
@@ -154,16 +167,26 @@ FontWeight="SemiBold"
                 </Grid.RowDefinitions>
 
                 <!-- ▶ Playback Buttons Centered -->
-                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="49.8,0,0,-20">
-                    <Button Name="PlayBtn" Content="▶"
-                    Width="30"
-                    Click="PlayButton_Click"
-                            Background="White"
-Foreground="Black"
-FontWeight="SemiBold"
-                    Margin="0,0,40,0" BorderBrush="#FF007ACC" Height="30"/>
-                    
+                <StackPanel HorizontalAlignment="Center" Margin="10,0,0,-20" VerticalAlignment="Center" Orientation="Horizontal">
+
+                    <Button Content="⏮️"
+                            Name="PrevTrack"
+                            Background="#00007ACC"
+                            Foreground="White"
+                            FontWeight="SemiBold"
+                            FontSize="15"
+                            Width="30"
+                            BorderBrush="#00707070" Margin="0,0,5,0"/>
+                    <Button Name="PlayBtn" Content="▶" Width="30" Click="PlayButton_Click" FontSize="20" Background="White" Foreground="Black" FontWeight="SemiBold" BorderBrush="#00707070" Height="30" Margin="0,0,5,0"/>
+                    <Button Content="⏭️"
+                            Name="NextTrack"
+                            Background="#00007ACC"
+                            Foreground="White"
+                            FontWeight="SemiBold"
+                            FontSize="15"
+                            Width="30" BorderBrush="#00707070"/>
                 </StackPanel>
+
 
                 <!-- 🎶 Bottom Row Layout -->
                 <Grid Grid.Row="1">
@@ -217,7 +240,7 @@ FontWeight="SemiBold"
                 Margin="-138,0,0,20" Orientation="Horizontal" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="1">
                         <TextBlock x:Name="elapsedTime"
                    Text="0:00"
-                   Margin="0,0,5,0"
+                   Margin="0,0,5,-16"
                    VerticalAlignment="Center"
                    Foreground="White"/>
 
@@ -229,11 +252,11 @@ FontWeight="SemiBold"
                 Height="20"
                 VerticalAlignment="Center"
                 PreviewMouseDown="SeekBar_PreviewMouseDown"
-                PreviewMouseUp="SeekBar_PreviewMouseUp"/>
+                PreviewMouseUp="SeekBar_PreviewMouseUp" Margin="0,0,0,-15.1"/>
 
                         <TextBlock x:Name="totalTime"
                    Text="0:00"
-                   Margin="5,0,0,0"
+                   Margin="5,0,0,-15"
                    VerticalAlignment="Center"
                    Foreground="White"/>
                     </StackPanel>
